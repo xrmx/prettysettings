@@ -1,9 +1,9 @@
 It allows to save and retrieve configuraton settings from a json file.
 
 - usage: 
-  `from prettysettings import Settings`
-  `settings = Settings(defaults = {'option1': 1, 'option2': 'myoption'}, filename='./settings.json')`
-  `print(settings.option1)`
+  `from prettysettings import Settings
+   settings = Settings(defaults = {'option1': 1, 'option2': 'myoption'}, filename='./settings.json')
+   print(settings.option1)`
 
 - if any of the settings is found in env variables than it is overridden
 
