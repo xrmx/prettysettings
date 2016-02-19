@@ -2,12 +2,17 @@ import os
 from setuptools import setup, find_packages
 
 def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+    desc = ''
+    try:
+        desc = open(os.path.join(os.path.dirname(__file__), fname)).read()
+    except:
+        pass
 
+    return desc
 
 setup(
     name = "prettysettings",
-    version = "1",
+    version = "1.1",
     packages = find_packages(),
     long_description=read('README.md'),
     # metadata for upload to PyPI
