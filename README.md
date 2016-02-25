@@ -39,7 +39,7 @@ Say you have `settings.json` containing:
 ```json
 {
     "option1": 2,
-    "option2": 'my_new_option'
+    "option2": "my_new_option"
 }
 ```
 then:
@@ -71,7 +71,7 @@ will produce `settings.json` containing:
 ```json
 {
     "option1": 1,
-    "option2": 'my_new_option'
+    "option2": "my_new_option"
 }
 ```
 
