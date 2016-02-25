@@ -105,3 +105,22 @@ print(settings.option1)          # output 1
 print(settings.option2)          # output 'myoption'
 print(settings.computedoption)   # output 'hey this is computed with myoption!!'
 ```
+
+**Hint**: if you have more hooks with dependencies with one another, just wrap whem within an OrderedDict to be sure they will be executed in the correct order:
+
+```python
+from collections import OrderedDict
+from prettysettings import Settings
+
+cshooks = OrderedDict([
+    ('computedoption', lambda settings: 'hey this is computed with {}!! '.format(settings.option2)),
+    ('computedoption2', lambda settings: settings.option2 * settings.computedoption)
+])
+
+settings = Settings(defaults= {'option1': 2, 'option2': 'myoption'}, computed_settings_hooks=cshooks)
+print(settings.option1)          # output 2
+print(settings.option2)          # output 'myoption'
+print(settings.computedoption)   # output 'hey this is computed with myoption!!'
+print(settings.computedoption2)   # output 'hey this is computed with myoption!! hey this is computed with myoption!!'
+```
+
