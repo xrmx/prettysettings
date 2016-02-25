@@ -73,7 +73,7 @@ settings = Settings(defaults = {'option1': 1, 'option2': 3}, filename='./setting
 
 About filename:
 - if filename does not exists it is skipped and Settings object is created with defaults
-- this allows to create settings from defaults > updating them > persisting them to file even if it does not exists at creation time
+- this allows to create settings from defaults > updating them > persisting them to file even if it didn't exist at creation time
 
 Say `settings.json` does not exists:
 ```python
