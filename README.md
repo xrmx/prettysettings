@@ -8,14 +8,14 @@ Override order is:
 - last override from env variables
 
 ## Keys:
-- defaults dict is used as reference to load keys from file and from env variables
+- defaults dict is used as a reference to load keys from file and from env variables
 - if a key is found in the file (or env vars) which is not present in the defaults it is discarded
 
 ## Types:
 - defaults dict is used to enforce type when loading from file or env variables
 - this ensures that env variables, which must be strings, are parsed to the type used in the default dict
 - parsed types are: `bool`, `int`, `float`, `str`
-- any type `T` for which a string representation exists, so that `T(string)` is the expected object
+- any type `T` for which a string representation exists, so that `T(string)` is the expected object is supported
 - hence if `defaults = {'a': 1}` while the file contains `{'a': '2'}`, the result will be `settings.a == 2` (`int`)
 - whereas if `defaults = {'a': 1}` while the file contains `{'a': 'string'}`, the Settings' constructor will raise an exception
 
@@ -38,8 +38,8 @@ print(settings.option2) # output 'myoption'
 Say you have `settings.json` containing:
 ```json
 {
-    'option1': 2,
-    'option2': 'my_new_option'
+    "option1": 2,
+    "option2": 'my_new_option'
 }
 ```
 then:
@@ -70,8 +70,8 @@ settings.update( {'option2': 'my_new_option'}, persist=True)
 will produce `settings.json` containing:
 ```json
 {
-    'option1': 1,
-    'option2': 'my_new_option'
+    "option1": 1,
+    "option2": 'my_new_option'
 }
 ```
 
