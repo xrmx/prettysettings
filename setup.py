@@ -12,16 +12,15 @@ def read(fname):
 
 setup(
     name = "prettysettings",
-    version = "1.1",
+    version = "1.2",
     packages = find_packages(),
     long_description=read('README.md'),
     # metadata for upload to PyPI
     author = "Stefano Terna",
     author_email = "stefano.terna@tomorrowdata.io",
-    description = "This package provides a minimal class for settings management.",
+    description = "This package provides a minimal class for pretty settings management.",
     license = "Apache License, Version 2.0",
-    keywords = "hello world example examples",
-    url = "https://github.com/iottly/pie-settings",   
+    keywords = "pretty settings management",
+    url = "https://github.com/iottly/prettysettings",   
 
-    # could also include long_description, download_url, classifiers, etc.
 )

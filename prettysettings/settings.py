@@ -18,45 +18,56 @@ limitations under the License.
 
 import os
 import json
-import logging
+from distutils.util import strtobool
 
 class Settings:
 
-    def __init__(self, defaults, filename): 
+    def _parse_to_default_type(self, defaultkey, parsevalue):
+        if type(self.defaults[defaultkey]) == bool and type(parsevalue) != bool:
+            return bool(strtobool(parsevalue))
+        else:
+            return type(self.defaults[defaultkey])(parsevalue)
+
+    def _parse_filter(self, settings):
+        return {k: self._parse_to_default_type(k, settings[k]) for k in settings.keys() if k in self.defaults.keys()}
+
+    def __init__(self, defaults, filename = None, computed_settings_hooks = None): 
 
         self.defaults = defaults
 
         self.filename = filename
+
         #set defaults
         self.__dict__.update(self.defaults)
 
         #override from settings.json file
-        try:
-            with open(self.filename, 'r') as f:
-                settings = json.loads(f.read())
-                self.__dict__.update(settings)
-        except Exception as e:
-            logging.error(e)
+        if self.filename:
+            if os.path.isfile(self.filename):
+                with open(self.filename, 'r') as f:
+                    settings = json.loads(f.read())
+                    self.__dict__.update(self._parse_filter(settings))
 
         #override from env variables:
-        self.__dict__.update({k: type(self.defaults[k])(os.environ[k]) for k in os.environ.keys() if k in self.defaults.keys()})
+        self.__dict__.update(self._parse_filter(os.environ))
 
-        logging.info(str(self))
+        if computed_settings_hooks:
+            for k in computed_settings_hooks.keys():
+                self.__dict__.update({k: computed_settings_hooks[k](self)})
+
 
     def __str__(self):
         return json.dumps({k: self.__dict__[k] for k in self.defaults.keys()},
                 sort_keys=True, indent=4, separators=(',', ': '))
 
-    def update(self, settings):
-        self.__dict__.update({k: settings[k] for k in settings.keys() if k in self.defaults.keys()})
-        self.save()
-        logging.info("updated")
-        logging.info(str(self))        
+    def update(self, settings, persist=True):
+        self.__dict__.update(self._parse_filter(settings))
+        if persist:
+            self.save()
 
     def save(self):
-        try:
+        if self.filename:
             with open(self.filename, 'w') as f:
                 f.write(str(self))
-        except Exception as e:
-            logging.info(e)
+        else:
+            raise Exception('No filename given.')
             
