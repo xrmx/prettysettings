@@ -114,7 +114,7 @@ from prettysettings import Settings
 
 cshooks = OrderedDict([
     ('computedoption', lambda settings: 'hey this is computed with {}!! '.format(settings.option2)),
-    ('computedoption2', lambda settings: settings.option2 * settings.computedoption)
+    ('computedoption2', lambda settings: settings.option1 * settings.computedoption)
 ])
 
 settings = Settings(defaults= {'option1': 2, 'option2': 'myoption'}, computed_settings_hooks=cshooks)
