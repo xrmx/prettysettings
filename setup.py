@@ -37,7 +37,7 @@ setup(
     author_email = "stefano.terna@tomorrowdata.io",
     description = "This package provides a minimal class for pretty settings management.",
     license = "Apache License, Version 2.0",
-    keywords = "pretty settings management",
+    keywords = "prettysettings settings json environment variables",
     url = "https://github.com/iottly/prettysettings",   
 
 )
