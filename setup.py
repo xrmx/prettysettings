@@ -39,5 +39,7 @@ setup(
     license = "Apache License, Version 2.0",
     keywords = "prettysettings settings json environment variables",
     url = "https://github.com/iottly/prettysettings",   
-
+    install_requires=[
+        'six',
+    ]
 )
