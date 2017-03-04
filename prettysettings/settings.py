@@ -21,6 +21,7 @@ import json
 
 from distutils.util import strtobool
 from inspect import ismodule
+import six
 
 
 class Settings:
