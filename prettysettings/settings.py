@@ -18,7 +18,10 @@ limitations under the License.
 
 import os
 import json
+
 from distutils.util import strtobool
+from inspect import ismodule
+
 
 class Settings:
 
@@ -70,4 +73,6 @@ class Settings:
                 f.write(str(self))
         else:
             raise Exception('No filename given.')
-            
+
+    def to_dict(self):
+        return {k: v for k, v in six.iteritems(self.__dict__) if k[0] != '_' and not ismodule(v)}
