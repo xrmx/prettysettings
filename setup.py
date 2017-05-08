@@ -29,7 +29,7 @@ def read(fname):
 
 setup(
     name = "prettysettings",
-    version = "1.3.1",
+    version = "1.3.2",
     packages = find_packages(),
     long_description=read('README.md'),
     # metadata for upload to PyPI

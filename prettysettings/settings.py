@@ -35,11 +35,20 @@ class Settings:
     def _parse_filter(self, settings):
         return {k: self._parse_to_default_type(k, settings[k]) for k in settings.keys() if k in self.defaults.keys()}
 
+
+    def _apply_hooks():
+        if self.computed_settings_hooks:
+            for k in self.computed_settings_hooks.keys():
+                self.__dict__.update({k: self.computed_settings_hooks[k](self)})
+
+
     def __init__(self, defaults, filename = None, computed_settings_hooks = None): 
 
         self.defaults = defaults
 
         self.filename = filename
+
+        self.computed_settings_hooks = computed_settings_hooks
 
         #set defaults
         self.__dict__.update(self.defaults)
@@ -54,10 +63,8 @@ class Settings:
         #override from env variables:
         self.__dict__.update(self._parse_filter(os.environ))
 
-        if computed_settings_hooks:
-            for k in computed_settings_hooks.keys():
-                self.__dict__.update({k: computed_settings_hooks[k](self)})
-
+        #apply hooks:
+        self._apply_hooks()
 
     def __str__(self):
         return json.dumps({k: self.__dict__[k] for k in self.defaults.keys()},
@@ -65,8 +72,13 @@ class Settings:
 
     def update(self, settings, persist=True):
         self.__dict__.update(self._parse_filter(settings))
+
         if persist:
             self.save()
+
+        #hooks are not persisted
+        self._apply_hooks()
+
 
     def save(self):
         if self.filename:
