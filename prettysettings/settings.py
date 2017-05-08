@@ -36,7 +36,7 @@ class Settings:
         return {k: self._parse_to_default_type(k, settings[k]) for k in settings.keys() if k in self.defaults.keys()}
 
 
-    def _apply_hooks():
+    def _apply_hooks(self):
         if self.computed_settings_hooks:
             for k in self.computed_settings_hooks.keys():
                 self.__dict__.update({k: self.computed_settings_hooks[k](self)})
