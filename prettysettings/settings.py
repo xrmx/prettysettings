@@ -21,7 +21,6 @@ import json
 
 from distutils.util import strtobool
 from inspect import ismodule
-import six
 
 
 class Settings:
@@ -88,4 +87,4 @@ class Settings:
             raise Exception('No filename given.')
 
     def to_dict(self):
-        return {k: v for k, v in six.iteritems(self.__dict__) if k[0] != '_' and not ismodule(v)}
+        return {k: v for k, v in self.__dict__.items() if k[0] != '_' and not ismodule(v)}
